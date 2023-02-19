@@ -1,4 +1,4 @@
-package com.example.git_followers.app.data.datasource
+package com.example.git_followers.app.data.datasource.models
 
 import com.google.gson.annotations.SerializedName
 

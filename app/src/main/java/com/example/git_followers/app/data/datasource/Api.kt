@@ -1,17 +1,23 @@
 package com.example.git_followers.app.data.datasource
 
-import retrofit2.Call
+import Followers
+import com.example.git_followers.app.data.datasource.models.UserResultSearchName
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
-// https://api.github.com/search/users?q=Q
+// test  https://api.github.com/search/users?q=Q
 
 interface Api {
 
     @GET("users/{user}/repos")
-    fun loadUsers(@Path("user") user: String):Call<String>
+    suspend fun loadUsers(@Path("user") user: String):Response<UserResultSearchName>
 
     @GET("search/users?q=Q")
     suspend fun testLoad(): Response<UserResultSearchName>
+
+    @GET("users/{url}/followers")
+    suspend fun loadFollowers(@Path("url") url:String): Response<Array<Followers>>
 }
+

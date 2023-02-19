@@ -1,6 +1,6 @@
-package com.example.git_followers.app.data.datasource
+package com.example.git_followers.app.data.datasource.models
 
-import com.example.git_followers.app.data.datasource.Items
+import com.example.git_followers.app.data.datasource.models.Items
 import com.google.gson.annotations.SerializedName
 
 
