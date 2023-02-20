@@ -13,23 +13,18 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserRepositoryUs
     private val userEntity by lazy { UserEntity() }
 
     override suspend fun getUser(userName: String) = flow {
-
         if (userEntity.userName?.isNotEmpty() == true) {
             emit(RepositoryResult.Success(userEntity))
         } else {
-            val result = webRequest.loadDataFromServer()
+            val result = webRequest.loadDataFromServer(userName = userName)
             when (result.status) {
                 ApiStatus.ERROR -> {}
                 ApiStatus.SUCCESS -> {
                     result.data?.let { userResult ->
-                        val countFollowers = userResult.items.firstOrNull()?.login?.let {
-                            calculateFollowers(it)
-                        }
+                        val countFollowers = calculateFollowers(user = userName)
                         userResult.let {
-                            countFollowers?.let { count ->
-                                val userEntity = Mapper.mapToUserEntity(it, count)
-                                emit(RepositoryResult.Success(_data = userEntity))
-                            }
+                            val userEntity = Mapper.mapToUserEntity(it,countFollowers)
+                            emit(RepositoryResult.Success(_data = userEntity))
                         }
                     }
                 }
@@ -38,8 +33,8 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserRepositoryUs
         }
     }
 
-    private suspend fun calculateFollowers(user: String): Int? {
-        return webRequest.loadDataFollowersFromServer(user = user)
+    private suspend fun calculateFollowers(user: String): Int {
+        return webRequest.loadDataFollowersFromServer(user = user) ?: 0
     }
 
 }

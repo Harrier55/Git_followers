@@ -58,7 +58,7 @@ fun MainScreen(viewModel: MainScreenViewModel = koinViewModel()) {
                     }
                 },
                 placeholder = ({
-                    Text(text = "Вести имя пользователя GitHub")
+                    Text(text = "Найти пользователя GitHub")
                 }),
             )
         }
