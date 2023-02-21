@@ -15,23 +15,22 @@ class MainScreenViewModel(private val userRepository: UserRepositoryImpl) : View
     val viewState: LiveData<MainScreenViewState> = _viewState
 
     fun onClickSearchButton(userName: String) {
-        Log.d("@@@", "onClickSearchButton: $userName")
-
-
-        viewModelScope.launch {
-            userRepository.getUser(userName).collect { repositoryResult ->
-                when (repositoryResult.status) {
-                    Status.ERROR -> {}
-                    Status.LOADING -> {}
-                    Status.SUCCESS -> {
-                        _viewState.postValue(
-                            repositoryResult.data?.let {
-                                MainScreenViewState(
-                                    userEntity = it,
-                                    isLoading = false
-                                )
-                            }
-                        )
+        if (userName.isNotEmpty()) {
+            viewModelScope.launch {
+                userRepository.getUser(userName).collect { repositoryResult ->
+                    when (repositoryResult.status) {
+                        Status.ERROR -> {}
+                        Status.LOADING -> {}
+                        Status.SUCCESS -> {
+                            _viewState.postValue(
+                                repositoryResult.data?.let {
+                                    MainScreenViewState(
+                                        userEntity = it,
+                                        isLoading = false
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }
