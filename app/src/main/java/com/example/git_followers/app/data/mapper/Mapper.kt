@@ -1,14 +1,11 @@
 package com.example.git_followers.app.data.mapper
 
-import android.util.Log
 import com.example.git_followers.app.data.datasource.models.UserReposGitHub
 import com.example.git_followers.app.data.datasource.models.UserResultSearchName
 import com.example.git_followers.app.domain.models.UserEntity
 import com.example.git_followers.app.domain.models.UserProjectDescription
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 object Mapper {
@@ -16,9 +13,7 @@ object Mapper {
         val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         val date: Date = dateFormat.parse(data) as Date
         val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        val dateStr: String = formatter.format(date)
-        Log.d("@@@", "dateFormatter: $dateStr")
-        return dateStr
+        return formatter.format(date)
     }
 
     fun mapToUserProjectDescriptionList(

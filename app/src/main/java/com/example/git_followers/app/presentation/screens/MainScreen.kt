@@ -9,12 +9,15 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.git_followers.R
 import com.example.git_followers.app.domain.models.UserEntity
 import com.example.git_followers.app.presentation.components.ImageLoader
 import com.example.git_followers.app.presentation.viewmodel.MainScreenViewModel
+import com.example.git_followers.app.presentation.viewmodel.MainScreenViewState
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,8 +25,8 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = koinViewModel()) {
 
     var message by remember { mutableStateOf(TextFieldValue("")) }
-    val state = viewModel.viewState.observeAsState()
-    val userEntity = state.value?.userEntity
+    val state = viewModel.viewState.observeAsState(MainScreenViewState())
+    val userEntity = state.value.userEntity
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(Modifier.size(8.dp))
@@ -52,7 +55,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                     }
                 },
                 placeholder = ({
-                    Text(text = "Найти пользователя GitHub")
+                    Text(text = stringResource(R.string.searg_user))
                 }),
                 singleLine = true,
                 maxLines = 12
@@ -78,14 +81,14 @@ private fun ItemSearchedUser(userEntity: UserEntity, navController: NavControlle
         userEntity.userName?.let { Text(text = it, style = MaterialTheme.typography.titleLarge) }
         Spacer(Modifier.size(8.dp))
         Text(
-            text = "Подписчиков ${userEntity.userNumFollowers} ",
+            text = stringResource(R.string.follovers) + userEntity.userNumFollowers,
             style = MaterialTheme.typography.bodyLarge
         )
         Spacer(Modifier.size(8.dp))
         Button(onClick = {
             navController.navigate("repoScreen/${userEntity.userName}")
         }) {
-            Text(text = "Описание проектов")
+            Text(text = stringResource(R.string.project_description))
         }
     }
 }

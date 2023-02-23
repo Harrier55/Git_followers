@@ -1,6 +1,5 @@
 package com.example.git_followers.app.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,18 +11,18 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.git_followers.R
 import com.example.git_followers.app.domain.models.UserProjectDescription
 import com.example.git_followers.app.presentation.components.ImageLoader
 import com.example.git_followers.app.presentation.viewmodel.UserProjectListViewModel
 import com.example.git_followers.app.presentation.viewmodel.UserProjectViewState
 import org.koin.androidx.compose.koinViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 @Composable
-fun UserProjectListScreen(user: String ,viewModel: UserProjectListViewModel = koinViewModel()) {
+fun UserProjectListScreen(user: String, viewModel: UserProjectListViewModel = koinViewModel()) {
     val viewState = viewModel.viewState.observeAsState(UserProjectViewState())
     viewModel.getData(user)
     val listItems: List<UserProjectDescription> = viewState.value.userProjects
@@ -36,8 +35,12 @@ fun UserProjectListScreen(user: String ,viewModel: UserProjectListViewModel = ko
             Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center) {
-            Text(text = "Описание проектов",style = MaterialTheme.typography.titleLarge)
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(R.string.project_description),
+                style = MaterialTheme.typography.titleLarge
+            )
         }
 
         listItems.forEach { userProject ->
@@ -73,7 +76,7 @@ private fun ItemUserProject(userProject: UserProjectDescription) {
                 .padding(start = 16.dp)
         ) {
             Text(
-                text = "Описание проекта: ${userProject.description}",
+                text = stringResource(R.string.description) + userProject.description,
                 Modifier.padding(vertical = 8.dp),
                 style = MaterialTheme.typography.bodyLarge
             )
@@ -83,34 +86,34 @@ private fun ItemUserProject(userProject: UserProjectDescription) {
                 Modifier.padding(start = 16.dp)
             ) {
                 Text(
-                    text = "Последний коммит: ",
+                    text = stringResource(R.string.commit),
                     Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Основная ветка проекта: ",
+                    text = stringResource(R.string.merge),
                     Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Количество форков: ",
+                    text = stringResource(R.string.forks_count),
                     Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Количество звезд: ",
+                    text = stringResource(R.string.stars_count),
                     Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Язык программирования: ",
+                    text = stringResource(R.string.lang),
                     Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
             Column()
             {
-                userProject.updated_at?.let {commit->
+                userProject.updated_at?.let { commit ->
 
                     Text(
                         text = commit,

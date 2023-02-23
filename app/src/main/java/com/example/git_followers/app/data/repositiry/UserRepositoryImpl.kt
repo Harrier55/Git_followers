@@ -12,7 +12,7 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserSearchUseCas
 
     private var userEntity:UserEntity? = null
     override suspend fun getUser(userName: String) = flow {
-        if (userEntity?.userName?.isNotEmpty() == true) {
+        if (userEntity?.userName?.isNotEmpty() == true && userEntity?.userName == userName) {
             emit(RepositoryResult.Success(userEntity))
         } else {
             val result = webRequest.loadDataFromServer(userName = userName)
@@ -34,7 +34,7 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserSearchUseCas
     }
 
     private suspend fun calculateFollowers(user: String): Int {
-        return webRequest.loadDataFollowersFromServer(user = user) ?: 0
+        return webRequest.loadDataFollowersFromServer(user = user)
     }
 
 }
