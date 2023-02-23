@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.git_followers.app.presentation.screens.MainScreen
-import com.example.git_followers.app.presentation.screens.UserRepoScreen
+import com.example.git_followers.app.presentation.screens.UserProjectListScreen
 import com.example.git_followers.app.presentation.theme.Git_followersTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,7 +37,8 @@ fun Navigate() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "mainScreen") {
         composable("mainScreen") { MainScreen(navController) }
-        composable("repoScreen") { UserRepoScreen() }
-
+        composable("repoScreen/{user}") {
+            it.arguments?.getString("user")?.let { it1 -> UserProjectListScreen(it1) }
+        }
     }
 }

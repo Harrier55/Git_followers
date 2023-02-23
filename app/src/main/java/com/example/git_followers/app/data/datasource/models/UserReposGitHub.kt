@@ -63,7 +63,7 @@ data class UserReposGitHub (
 	@SerializedName("size"                        ) var size                     : Int?              = null,
 	@SerializedName("stargazers_count"            ) var stargazersCount          : Int?              = null,
 	@SerializedName("watchers_count"              ) var watchersCount            : Int?              = null,
-//	@SerializedName("language"                    ) var language                 : String?           = null,
+	@SerializedName("language"                    ) var language                 : String?           = null,
 //	@SerializedName("has_issues"                  ) var hasIssues                : Boolean?          = null,
 //	@SerializedName("has_projects"                ) var hasProjects              : Boolean?          = null,
 //	@SerializedName("has_downloads"               ) var hasDownloads             : Boolean?          = null,

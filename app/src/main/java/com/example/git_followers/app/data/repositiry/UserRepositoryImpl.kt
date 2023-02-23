@@ -3,17 +3,16 @@ package com.example.git_followers.app.data.repositiry
 import com.example.git_followers.app.data.datasource.ApiStatus
 import com.example.git_followers.app.data.datasource.WebRequest
 import com.example.git_followers.app.data.mapper.Mapper
-import com.example.git_followers.app.domain.IUserRepositoryUseCase
+import com.example.git_followers.app.domain.IUserSearchUseCase
 import com.example.git_followers.app.domain.models.RepositoryResult
 import com.example.git_followers.app.domain.models.UserEntity
 import kotlinx.coroutines.flow.flow
 
-class UserRepositoryImpl(private val webRequest: WebRequest) : IUserRepositoryUseCase {
+class UserRepositoryImpl(private val webRequest: WebRequest) : IUserSearchUseCase {
 
-    private val userEntity by lazy { UserEntity() }
-
+    private var userEntity:UserEntity? = null
     override suspend fun getUser(userName: String) = flow {
-        if (userEntity.userName?.isNotEmpty() == true) {
+        if (userEntity?.userName?.isNotEmpty() == true) {
             emit(RepositoryResult.Success(userEntity))
         } else {
             val result = webRequest.loadDataFromServer(userName = userName)
@@ -23,7 +22,8 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserRepositoryUs
                     result.data?.let { userResult ->
                         val countFollowers = calculateFollowers(user = userName)
                         userResult.let {
-                            val userEntity = Mapper.mapToUserEntity(it,countFollowers)
+                            val userEntityRes = Mapper.mapToUserEntity(it,countFollowers)
+                            userEntity = userEntityRes
                             emit(RepositoryResult.Success(_data = userEntity))
                         }
                     }

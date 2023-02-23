@@ -8,7 +8,7 @@ import java.io.IOException
 
 class WebRequest(private val webApi: Api) {
 
-    suspend fun loadDataFromServerUserDataWithRepo(userName:String): ApiResult<List<UserReposGitHub>> {
+    suspend fun loadDataUserProjects(userName: String): ApiResult<List<UserReposGitHub>> {
         try {
             val response = webApi.loadUsersWithRepo(userName)
             return if (response.code() == 200 && response.isSuccessful) {
@@ -26,7 +26,7 @@ class WebRequest(private val webApi: Api) {
         }
     }
 
-    suspend fun loadDataFromServer(userName:String): ApiResult<UserResultSearchName> {
+    suspend fun loadDataFromServer(userName: String): ApiResult<UserResultSearchName> {
         try {
             val response = webApi.loadDataUser(users = userName)
             return if (response.code() == 200 && response.isSuccessful) {
@@ -44,14 +44,13 @@ class WebRequest(private val webApi: Api) {
         }
     }
 
-    suspend fun loadDataFollowersFromServer(user: String): Int? {
+    suspend fun loadDataFollowersFromServer(user: String): Int {
         try {
             val response = webApi.loadFollowers(user)
-            Log.d("@@@", "loadDataFollowersFromServer: ${response.body()?.size}")
-            return response.body()?.size
+            return response.body()?.size ?: 0
         } catch (e: Exception) {
             Log.d("@@@", "loadDataFollowersFromServer: $e")
         }
-        return null
+        return 0
     }
 }

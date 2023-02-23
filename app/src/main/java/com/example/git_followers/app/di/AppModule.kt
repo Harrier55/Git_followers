@@ -4,7 +4,9 @@ package com.example.git_followers.app.di
 import com.example.git_followers.app.data.repositiry.UserRepositoryImpl
 import com.example.git_followers.app.data.datasource.Api
 import com.example.git_followers.app.data.datasource.WebRequest
+import com.example.git_followers.app.data.repositiry.DescriptionProjectRepositoryImpl
 import com.example.git_followers.app.presentation.viewmodel.MainScreenViewModel
+import com.example.git_followers.app.presentation.viewmodel.UserProjectListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,17 +21,12 @@ object AppModule {
     val mainModule = module {
         single { UserRepositoryImpl(webRequest = get()) }
         single { WebRequest(webApi = get()) }
+        single { DescriptionProjectRepositoryImpl(webRequest = get()) }
 
         /** ViewModels */
-
-        /** ViewModels */
-        viewModel {
-            MainScreenViewModel(userRepository = get())
-        }
+        viewModel { MainScreenViewModel(userRepository = get()) }
+        viewModel { UserProjectListViewModel(repository = get()) }
     }
-
-
-
 
 
     /** Клиент Retrofit сразу с интерфейсом */

@@ -3,7 +3,7 @@ import com.example.git_followers.app.domain.models.RepositoryResult
 import com.example.git_followers.app.domain.models.UserEntity
 import kotlinx.coroutines.flow.Flow
 
-internal interface IUserRepositoryUseCase{
+internal interface IUserSearchUseCase{
 
     suspend fun getUser(userName: String): Flow<RepositoryResult<UserEntity>>
 
