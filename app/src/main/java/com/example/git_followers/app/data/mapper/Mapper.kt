@@ -1,29 +1,44 @@
 package com.example.git_followers.app.data.mapper
 
+import android.util.Log
 import com.example.git_followers.app.data.datasource.models.UserReposGitHub
 import com.example.git_followers.app.data.datasource.models.UserResultSearchName
 import com.example.git_followers.app.domain.models.UserEntity
 import com.example.git_followers.app.domain.models.UserProjectDescription
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object Mapper {
+    private fun dateFormatter(data: String): String {
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        val date: Date = dateFormat.parse(data) as Date
+        val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val dateStr: String = formatter.format(date)
+        Log.d("@@@", "dateFormatter: $dateStr")
+        return dateStr
+    }
 
     fun mapToUserProjectDescriptionList(
         userReposGitHub: List<UserReposGitHub>
     ): List<UserProjectDescription> {
         val dataList = mutableListOf<UserProjectDescription>()
-        userReposGitHub.forEach { userReposGitHub ->
+        userReposGitHub.forEach { gitHub ->
+            gitHub.updatedAt?.let { dateFormatter(it) }
             dataList.add(
                 UserProjectDescription(
-                    id = userReposGitHub.id,
-                    userName = userReposGitHub.name,
-                    nameRepository = userReposGitHub.name,
-                    avatar_url = userReposGitHub.owner?.avatarUrl,
-                    description = userReposGitHub.description,
-                    updated_at = userReposGitHub.updatedAt,
-                    default_branch = userReposGitHub.defaultBranch,
-                    forks_count = userReposGitHub.forksCount,
-                    stargazers_count = userReposGitHub.stargazersCount,
-                    language = userReposGitHub.language
+                    id = gitHub.id,
+                    userName = gitHub.name,
+                    nameRepository = gitHub.name,
+                    avatar_url = gitHub.owner?.avatarUrl,
+                    description = gitHub.description,
+                    updated_at = gitHub.updatedAt?.let { dateFormatter(it) },
+                    default_branch = gitHub.defaultBranch,
+                    forks_count = gitHub.forksCount,
+                    stargazers_count = gitHub.stargazersCount,
+                    language = gitHub.language
                 )
             )
         }

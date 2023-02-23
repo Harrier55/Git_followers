@@ -1,7 +1,6 @@
 package com.example.git_followers.app.presentation.screens
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -152,9 +151,3 @@ private fun ItemUserProject(userProject: UserProjectDescription) {
     }
 }
 
-private fun dateFormatter(data:String){
-    val formatter = DateTimeFormatter.ofPattern(" MM dd yyyy")
-    val date = LocalDate.parse(data, formatter)
-    Log.d("@@@", "dateFormatter: $date")
-
-}
