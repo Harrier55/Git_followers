@@ -11,6 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.git_followers.R
@@ -23,8 +24,10 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserProjectListScreen(user: String, viewModel: UserProjectListViewModel = koinViewModel()) {
+
+    val context = LocalContext.current
     val viewState = viewModel.viewState.observeAsState(UserProjectViewState())
-    viewModel.getData(user)
+    viewModel.getData(userName = user, context = context)
     val listItems: List<UserProjectDescription> = viewState.value.userProjects
 
     Column(

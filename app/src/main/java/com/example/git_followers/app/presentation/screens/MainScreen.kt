@@ -9,6 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = koinViewModel()) {
 
+    val context = LocalContext.current
     var message by remember { mutableStateOf(TextFieldValue("")) }
     val state = viewModel.viewState.observeAsState(MainScreenViewState())
     val userEntity = state.value.userEntity
@@ -43,7 +45,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                 trailingIcon = {
                     Button(
                         onClick = {
-                            viewModel.onClickSearchButton(message.text)
+                            viewModel.onClickSearchButton(userName = message.text, context = context)
                         },
                         colors = ButtonDefaults.buttonColors(Color.Transparent)
                     ) {

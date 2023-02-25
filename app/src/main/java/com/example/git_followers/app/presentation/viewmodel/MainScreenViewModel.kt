@@ -1,5 +1,6 @@
 package com.example.git_followers.app.presentation.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.git_followers.app.domain.usecase.UserSearchUseCase
 import com.example.git_followers.app.domain.models.Status
 import com.example.git_followers.app.domain.models.UserEntity
+import com.example.git_followers.app.utils.CheckInternet
 import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
@@ -16,9 +18,9 @@ class MainScreenViewModel(
     private val _viewState = MutableLiveData<MainScreenViewState>()
     val viewState: LiveData<MainScreenViewState> = _viewState
 
-    fun onClickSearchButton(userName: String) {
+    fun onClickSearchButton(userName: String, context: Context) {
 
-        if (userName.isNotEmpty()) {
+        if (userName.isNotEmpty() && CheckInternet.isOnline(context)) {
             viewModelScope.launch {
                 useCase.getUser(userName).collect { repositoryResult ->
                     when (repositoryResult.status) {

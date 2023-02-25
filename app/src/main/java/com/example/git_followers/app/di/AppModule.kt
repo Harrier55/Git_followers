@@ -9,6 +9,8 @@ import com.example.git_followers.app.domain.usecase.UserRepoListUseCase
 import com.example.git_followers.app.domain.usecase.UserSearchUseCase
 import com.example.git_followers.app.presentation.viewmodel.MainScreenViewModel
 import com.example.git_followers.app.presentation.viewmodel.UserProjectListViewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
