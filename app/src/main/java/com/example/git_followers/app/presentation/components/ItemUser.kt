@@ -30,7 +30,7 @@ fun ItemUser() {
                 .background(Color.LightGray)
         )
         {
-            // todo Image
+            /** Image **/
         }
         Column(Modifier.padding(start = 16.dp))
         {

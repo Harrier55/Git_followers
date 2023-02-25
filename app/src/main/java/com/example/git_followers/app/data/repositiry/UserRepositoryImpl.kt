@@ -3,15 +3,14 @@ package com.example.git_followers.app.data.repositiry
 import com.example.git_followers.app.data.datasource.ApiStatus
 import com.example.git_followers.app.data.datasource.WebRequest
 import com.example.git_followers.app.data.mapper.Mapper
-import com.example.git_followers.app.domain.IUserSearchUseCase
 import com.example.git_followers.app.domain.models.RepositoryResult
 import com.example.git_followers.app.domain.models.UserEntity
 import kotlinx.coroutines.flow.flow
 
-class UserRepositoryImpl(private val webRequest: WebRequest) : IUserSearchUseCase {
+class UserRepositoryImpl(private val webRequest: WebRequest) {
 
-    private var userEntity:UserEntity? = null
-    override suspend fun getUser(userName: String) = flow {
+    private var userEntity: UserEntity? = null
+    suspend fun getUser(userName: String) = flow {
         if (userEntity?.userName?.isNotEmpty() == true && userEntity?.userName == userName) {
             emit(RepositoryResult.Success(userEntity))
         } else {
@@ -22,7 +21,7 @@ class UserRepositoryImpl(private val webRequest: WebRequest) : IUserSearchUseCas
                     result.data?.let { userResult ->
                         val countFollowers = calculateFollowers(user = userName)
                         userResult.let {
-                            val userEntityRes = Mapper.mapToUserEntity(it,countFollowers)
+                            val userEntityRes = Mapper.mapToUserEntity(it, countFollowers)
                             userEntity = userEntityRes
                             emit(RepositoryResult.Success(_data = userEntity))
                         }

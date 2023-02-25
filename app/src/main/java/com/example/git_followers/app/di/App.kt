@@ -1,4 +1,4 @@
-package com.example.git_followers.app.data
+package com.example.git_followers.app.di
 
 import android.app.Application
 import com.example.git_followers.app.di.AppModule

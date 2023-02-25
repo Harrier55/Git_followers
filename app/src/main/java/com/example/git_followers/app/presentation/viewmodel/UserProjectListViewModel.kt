@@ -4,33 +4,35 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.git_followers.app.data.repositiry.DescriptionProjectRepositoryImpl
+import com.example.git_followers.app.domain.usecase.UserRepoListUseCase
 import com.example.git_followers.app.domain.models.Status
 import com.example.git_followers.app.domain.models.UserProjectDescription
 import kotlinx.coroutines.launch
 
-class UserProjectListViewModel(private val repository: DescriptionProjectRepositoryImpl): ViewModel() {
+class UserProjectListViewModel(
+    private val useCase: UserRepoListUseCase
+) : ViewModel() {
 
     private val _viewState = MutableLiveData<UserProjectViewState>()
-    val  viewState:LiveData<UserProjectViewState> = _viewState
+    val viewState: LiveData<UserProjectViewState> = _viewState
 
-    fun getData(userName: String){
-        if (userName.isNotEmpty()){
+    fun getData(userName: String) {
+        if (userName.isNotEmpty()) {
             viewModelScope.launch {
-                repository.getListUserProject(userName = userName).collect{repositoryResult ->
-                   when(repositoryResult.status){
-                       Status.ERROR -> {}
-                       Status.LOADING -> {}
-                       Status.SUCCESS ->{
-                           _viewState.postValue(repositoryResult.data?.let {
-                               UserProjectViewState(
-                                   userProjects = it,
-                                   isLoading = false
-                               )
-                           })
-                           repositoryResult.data
-                       }
-                   }
+                useCase.getUserProjectList(userName = userName).collect { repositoryResult ->
+                    when (repositoryResult.status) {
+                        Status.ERROR -> {}
+                        Status.LOADING -> {}
+                        Status.SUCCESS -> {
+                            _viewState.postValue(repositoryResult.data?.let {
+                                UserProjectViewState(
+                                    userProjects = it,
+                                    isLoading = false
+                                )
+                            })
+                            repositoryResult.data
+                        }
+                    }
                 }
             }
         }

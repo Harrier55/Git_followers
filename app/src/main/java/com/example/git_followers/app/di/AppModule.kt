@@ -5,6 +5,8 @@ import com.example.git_followers.app.data.repositiry.UserRepositoryImpl
 import com.example.git_followers.app.data.datasource.Api
 import com.example.git_followers.app.data.datasource.WebRequest
 import com.example.git_followers.app.data.repositiry.DescriptionProjectRepositoryImpl
+import com.example.git_followers.app.domain.usecase.UserRepoListUseCase
+import com.example.git_followers.app.domain.usecase.UserSearchUseCase
 import com.example.git_followers.app.presentation.viewmodel.MainScreenViewModel
 import com.example.git_followers.app.presentation.viewmodel.UserProjectListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,10 +24,12 @@ object AppModule {
         single { UserRepositoryImpl(webRequest = get()) }
         single { WebRequest(webApi = get()) }
         single { DescriptionProjectRepositoryImpl(webRequest = get()) }
+        single { UserRepoListUseCase(repository = get()) }
+        single { UserSearchUseCase(userRepository = get()) }
 
         /** ViewModels */
-        viewModel { MainScreenViewModel(userRepository = get()) }
-        viewModel { UserProjectListViewModel(repository = get()) }
+        viewModel { MainScreenViewModel(useCase = get()) }
+        viewModel { UserProjectListViewModel(useCase = get()) }
     }
 
 

@@ -49,7 +49,7 @@ class WebRequest(private val webApi: Api) {
             val response = webApi.loadFollowers(user)
             return response.body()?.size ?: 0
         } catch (e: Exception) {
-            Log.d("@@@", "loadDataFollowersFromServer: $e")
+            Log.d("@@@", "Error loadDataFollowersFromServer: $e")
         }
         return 0
     }

@@ -20,10 +20,10 @@ class DescriptionProjectRepositoryImpl(private val webRequest: WebRequest) {
             when (result.status) {
                 ApiStatus.ERROR -> {}
                 ApiStatus.SUCCESS -> {
-                    result.data?.let { result ->
+                    result.data?.let { reposGitHubs ->
                         val userProject =
-                            Mapper.mapToUserProjectDescriptionList(userReposGitHub = result)
-                        emit(RepositoryResult.Success(userProject as List<UserProjectDescription>))
+                            Mapper.mapToUserProjectDescriptionList(userReposGitHub = reposGitHubs)
+                        emit(RepositoryResult.Success(userProject))
                     }
                 }
                 ApiStatus.LOADING -> {}

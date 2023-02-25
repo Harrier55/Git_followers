@@ -4,12 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.git_followers.app.data.repositiry.UserRepositoryImpl
+import com.example.git_followers.app.domain.usecase.UserSearchUseCase
 import com.example.git_followers.app.domain.models.Status
 import com.example.git_followers.app.domain.models.UserEntity
 import kotlinx.coroutines.launch
 
-class MainScreenViewModel(private val userRepository: UserRepositoryImpl) : ViewModel() {
+class MainScreenViewModel(
+    private val useCase: UserSearchUseCase
+) : ViewModel() {
 
     private val _viewState = MutableLiveData<MainScreenViewState>()
     val viewState: LiveData<MainScreenViewState> = _viewState
@@ -18,7 +20,7 @@ class MainScreenViewModel(private val userRepository: UserRepositoryImpl) : View
 
         if (userName.isNotEmpty()) {
             viewModelScope.launch {
-                userRepository.getUser(userName).collect { repositoryResult ->
+                useCase.getUser(userName).collect { repositoryResult ->
                     when (repositoryResult.status) {
                         Status.ERROR -> {}
                         Status.LOADING -> {}
