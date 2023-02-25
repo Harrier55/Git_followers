@@ -1,4 +1,4 @@
-package com.example.git_followers.presentation.theme
+package com.example.git_followers.app.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -40,7 +40,7 @@ fun Git_followersTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography,
+        typography = MyTypography,
         shapes = Shapes,
         content = content
     )

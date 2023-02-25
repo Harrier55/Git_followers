@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Git_followers</string>
+    <string name="searg_user">Найти пользователя GitHub</string>
+    <string name="project_description">Описание проектов</string>
+    <string name="follovers">Подписчиков: </string>
+    <string name="commit">Последний коммит: </string>
+    <string name="merge">Основная ветка проекта: </string>
+    <string name="forks_count">Количество форков: </string>
+    <string name="stars_count">Количество звезд: </string>
+    <string name="lang">Язык программирования: </string>
+    <string name="description">Описание проекта : </string>
 </resources>
