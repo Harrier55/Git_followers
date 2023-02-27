@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.git_followers.app.domain.usecase.UserRepoListUseCase
+import com.example.git_followers.app.domain.usecase.UserProjectListUseCase
 import com.example.git_followers.app.domain.models.Status
 import com.example.git_followers.app.domain.models.UserProjectDescription
 import com.example.git_followers.app.utils.CheckInternet
 import kotlinx.coroutines.launch
 
 class UserProjectListViewModel(
-    private val useCase: UserRepoListUseCase
+    private val useCase: UserProjectListUseCase
 ) : ViewModel() {
 
     private val _viewState = MutableLiveData<UserProjectViewState>()

@@ -3,14 +3,15 @@ package com.example.git_followers.app.data.repositiry
 import com.example.git_followers.app.data.datasource.ApiStatus
 import com.example.git_followers.app.data.datasource.WebRequest
 import com.example.git_followers.app.data.mapper.Mapper
+import com.example.git_followers.app.domain.repository.UserRepository
 import com.example.git_followers.app.domain.models.RepositoryResult
 import com.example.git_followers.app.domain.models.UserEntity
 import kotlinx.coroutines.flow.flow
 
-class UserRepositoryImpl(private val webRequest: WebRequest) {
+class UserRepositoryImpl(private val webRequest: WebRequest): UserRepository {
 
     private var userEntity: UserEntity? = null
-    suspend fun getUser(userName: String) = flow {
+    override suspend fun getUser(userName: String) = flow {
         if (userEntity?.userName?.isNotEmpty() == true && userEntity?.userName == userName) {
             emit(RepositoryResult.Success(userEntity))
         } else {
