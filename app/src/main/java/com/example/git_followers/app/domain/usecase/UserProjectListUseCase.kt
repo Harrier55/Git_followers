@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class UserProjectListUseCase(
     private val repository: IUserProjectList
 ) {
-    fun getUserProjectList(userName: String): Flow<RepositoryResult.Success<List<UserProjectDescription>>> {
+    fun execute(userName: String): Flow<RepositoryResult.Success<List<UserProjectDescription>>> {
         return repository.getListUserProject(userName = userName)
     }
 }

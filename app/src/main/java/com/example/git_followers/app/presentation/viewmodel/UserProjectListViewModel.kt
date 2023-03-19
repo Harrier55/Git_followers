@@ -21,7 +21,7 @@ class UserProjectListViewModel(
     fun getData(userName: String , context: Context) {
         if (userName.isNotEmpty() && CheckInternet.isOnline(context)) {
             viewModelScope.launch {
-                useCase.getUserProjectList(userName = userName).collect { repositoryResult ->
+                useCase.execute(userName = userName).collect { repositoryResult ->
                     when (repositoryResult.status) {
                         Status.ERROR -> {}
                         Status.LOADING -> {}
