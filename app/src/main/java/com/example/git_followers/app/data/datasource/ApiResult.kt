@@ -1,7 +1,9 @@
 package com.example.git_followers.app.data.datasource
 
-/** класс обертка для ответов
- * взято здесь https://stackoverflow.com/questions/67812248/elegant-way-of-handling-error-using-retrofit-kotlin-flow*/
+import com.example.git_followers.app.data.datasource.models.ApiStatus
+
+/** класс обертка для ответов**/
+
 
 sealed class ApiResult<out T>(val status: ApiStatus, val data: T?, val message: String?) {
 
@@ -24,8 +26,3 @@ sealed class ApiResult<out T>(val status: ApiStatus, val data: T?, val message: 
     )
 }
 
-enum class ApiStatus {
-    SUCCESS,
-    ERROR,
-    LOADING
-}

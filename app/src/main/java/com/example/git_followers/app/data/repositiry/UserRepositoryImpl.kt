@@ -1,11 +1,10 @@
 package com.example.git_followers.app.data.repositiry
 
-import com.example.git_followers.app.data.datasource.ApiStatus
-import com.example.git_followers.app.data.datasource.WebRequest
+import com.example.git_followers.app.data.datasource.models.ApiStatus
 import com.example.git_followers.app.data.mapper.Mapper
-import com.example.git_followers.app.domain.repository.UserRepository
 import com.example.git_followers.app.domain.models.RepositoryResult
 import com.example.git_followers.app.domain.models.UserEntity
+import com.example.git_followers.app.domain.repository.UserRepository
 import kotlinx.coroutines.flow.flow
 
 class UserRepositoryImpl(private val webRequest: WebRequest): UserRepository {

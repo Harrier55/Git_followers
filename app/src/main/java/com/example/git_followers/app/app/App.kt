@@ -15,8 +15,7 @@ class App : Application() {
             androidContext(this@App)
             androidLogger()
             modules(
-                AppModule.mainModule,
-                AppModule.apiModule
+                AppModule.mainModule
             )
         }
     }

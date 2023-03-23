@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-// test  https://api.github.com/search/users?q=Q
+
 
 interface Api {
 
@@ -22,4 +22,3 @@ interface Api {
     suspend fun loadFollowers(@Path("url") url:String): Response<Array<Followers>>
 }
 
-// search/users?q=Q
